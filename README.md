@@ -1,4 +1,4 @@
-# N-Body_Simulation
+# N-Body Simulation
 A simple Python N-Body Simulator.
 
 This code borrows from https://github.com/pmocz/nbody-python.
