@@ -2,11 +2,13 @@ import numpy as np
 import time
 import imageio
 import matplotlib.pyplot as plt
+import os
+from natsort import natsorted
 
 def calc_acc( pos, mass, G, softening ):
 	"""
-  This block calculates the acceleration of each particle using Newton's Law 
-  pos  is an N x 3 matrix of positions
+    This block calculates the acceleration of each particle using Newton's Law 
+    pos  is an N x 3 matrix of positions
 	mass is an N x 1 vector of masses
 	G is Newton's Gravitational constant
 	softening is the softening length
@@ -41,7 +43,7 @@ def main():
   # Simulation parameters
   N         = 100    # Number of particles
   t         = 0      # current time of the simulation
-  tEnd      = 1.0   # time at which simulation ends
+  tEnd      = 10.0   # time at which simulation ends
   dt        = 0.01   # timestep
   softening = 0.1    # softening length
   G         = 1.0    # Newton's Gravitational Constant
@@ -108,7 +110,7 @@ def main():
       ax1.set_aspect('equal', 'box')
       ax1.set_xticks([-2,-1,0,1,2])
       ax1.set_yticks([-2,-1,0,1,2])
-      plt.savefig('images/img'+str(i)+'.png',dpi=240)
+      plt.savefig('images/'+str(i)+'.png')
            
          
  
@@ -125,14 +127,14 @@ print(f"Total Simulation time is {(stop-start)/60} mins")
 #This saves the plots as an animation. The individual plots are saved and then converted into a video.
 
 path='images/'
-name='img'
 fileList = []
 for file in os.listdir(path):
-    if file.startswith(name):
+    
         complete_path = path + file
         fileList.append(complete_path)
+fileList=natsorted(fileList)
 
-writer = imageio.get_writer('test.mp4', fps=20)
+writer = imageio.get_writer('video1.mp4', fps=20)
 
 for im in fileList:
     writer.append_data(imageio.imread(im))
